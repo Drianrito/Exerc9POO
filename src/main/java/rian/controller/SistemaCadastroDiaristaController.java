@@ -20,7 +20,7 @@ public class SistemaCadastroDiaristaController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String nome = JOptionPane.showInputDialog(janelaPrincipal,"Digite nome da Diarista: ");
         String cpf = JOptionPane.showInputDialog(janelaPrincipal,"Digite o cpf da Diarista: ");
-        String telefone = JOptionPane.showInputDialog(janelaPrincipal,"Digite o cpf da Diarista: ");
+        String telefone = JOptionPane.showInputDialog(janelaPrincipal,"Digite o telefone da Diarista: ");
         boolean cadastro = false;
         try {
             cadastro = sistemaLimpaCasas.cadastraDiarista(nome,cpf,telefone);

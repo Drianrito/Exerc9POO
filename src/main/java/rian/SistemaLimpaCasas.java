@@ -66,4 +66,7 @@ public class SistemaLimpaCasas implements SistemaDiarista{
             }
         }
     }
-}
+    public Diarista pesquisarDiarista(String cpf){
+            return listaDiaristas.get(cpf);
+        }
+    }

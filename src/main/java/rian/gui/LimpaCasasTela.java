@@ -13,7 +13,8 @@ import java.awt.*;
 
 public class LimpaCasasTela extends JFrame {
     JLabel linha1, linha2;
-    ImageIcon limpeza = new ImageIcon();
+    JButton botao1;
+    ImageIcon limpeza = new ImageIcon("./imgs/imagem.jpg");
     SistemaLimpaCasas sistema = new SistemaLimpaCasas();
     JMenuBar barraDeMenu = new JMenuBar();
     public LimpaCasasTela(){
@@ -22,14 +23,13 @@ public class LimpaCasasTela extends JFrame {
         setLocation(150,150);
         setResizable(true);
         setBackground(Color.LIGHT_GRAY);
-        linha1 = new JLabel("Numero 1 em Diaristas");
+        linha1 = new JLabel("Numero 1 em Diaristas do Brazil", JLabel.CENTER);
         linha1.setForeground(Color.red);
         linha1.setFont(new Font("Serif", Font.BOLD, 24));
         linha2 = new JLabel(limpeza, JLabel.CENTER);
-        setLayout(new GridLayout(3, 1));
-        add(linha1);
+        setLayout(new GridLayout(3,1 ));
         add(linha2);
-        add(new JLabel());
+        add(linha1);
         JMenu menuDiarista = new JMenu("Diarista");
             JMenuItem menuCadastrarDiarista = new JMenuItem(
                 "Cadastrar Diarista");
@@ -44,7 +44,7 @@ public class LimpaCasasTela extends JFrame {
                     try {
                         sistema.removerDiaristaPorCPF(cpf);
                     } catch (DiaristaNaoEncontradaException e) {
-                        e.printStackTrace();
+                        JOptionPane.showMessageDialog(this,"Diarista com esse cpf nao encontrada");
                     }
                 });
         JMenu menuMoradia = new JMenu("Moradia");
@@ -67,9 +67,9 @@ public class LimpaCasasTela extends JFrame {
                     Endereco endereco = new Endereco(rua,bairro,cidade,numeroCasa);
                     Moradia dono = new Moradia(nomeProprietario,cpfProprietario,endereco);
                     try {
-                        sistema.cadastrarMoradia(dono, endereco);
+                        sistema.cadastrarMoradia(dono,endereco);
                     } catch (CasaJaExisteException e) {
-                        JOptionPane.showMessageDialog(this,"Ja existe Moradia do mesmo endereco e Proprietario");
+                       JOptionPane.showMessageDialog(this,"Casa ja existe");
                     }
                 });
                 JMenuItem menuRemoverMoradia = new JMenuItem("Remover Moradia");
@@ -85,6 +85,15 @@ public class LimpaCasasTela extends JFrame {
                     Endereco endereco = new Endereco(rua,"","",numeroCasa);
                     sistema.removerMoradia(cpfProprietario,endereco);
                 });
+               botao1 = new JButton("Contratar Diarista");
+               botao1.addActionListener(                (ae) -> {
+                   String cpfProprietario = JOptionPane.showInputDialog(this,
+                           "Qual cpf do proprietario ?");
+                   String cpf = JOptionPane.showInputDialog(this,
+                           "Qual cpf da diarista que deseja remover ?");
+                   sistema.contratarDiarista(cpf,cpfProprietario);
+               });
+        add(botao1);
         menuDiarista.add(menuRemoveDiarista);
         barraDeMenu.add(menuDiarista);
         barraDeMenu.add(menuMoradia);
